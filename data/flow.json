@@ -1,0 +1,23 @@
+[
+        {
+            "name": "Start",
+            "color": "#49494970",
+            "item": "Node1",
+            "input":0,
+            "output":1
+        },
+        {
+            "name": "Stop",
+            "color": "blue",
+            "item": "Node2",
+            "input":1,
+            "output":2
+        },
+         {
+            "name": "Send Mail",
+            "color": "#ff9900",
+            "item": "Node3",
+            "input":1,
+            "output":0
+        }
+    ]
