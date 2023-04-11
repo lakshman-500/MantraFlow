@@ -1,0 +1,126 @@
+https://www.cssscript.com/flowchart-builder-draw/
+// get node from ID
+editor.getNodeFromId(id)
+// get nodes from name
+editor.getNodesFromName(name)
+// remove a node
+editor.removeNodeId(id)
+// add input to node
+editor.addNodeInput(id)
+// add output to node
+editor.addNodeOutput(id);
+// remove input from node.
+editor.removeNodeInput(id, input_class)
+// remove output from node
+editor.removeNodeOutput(id, output_class)
+// add a connection
+editor.addConnection(id_output, id_input, output_class, input_class)
+// remove connection
+editor.removeSingleConnection(id_output, id_input, output_class, input_class)
+// update connections between nodes
+editor.updateConnectionNodes(id) 
+// remove a collection between nodes
+editor.removeConnectionNodeId(id);
+// get module from node ID
+editor.getModuleFromNodeId(id) 
+// clear the data of the selected node
+editor.clearModuleSelected();
+// clear all data
+editor.clear();
+// zoom in/out
+editor.zoom_in();
+editor.zoom_out();
+
+--- events
+
+editor.on('nodeCreated', function(id) {
+  // do something
+})
+editor.on('nodeRemoved', function(id) {
+  // do something
+})
+editor.on('nodeDataChanged', function(id) {
+  // do something
+})
+editor.on('nodeSelected', function(id) {
+  // do something
+})
+editor.on('nodeUnselected', function(id) {
+  // do something
+})
+editor.on('nodeMoved', function(id) {
+  // do something
+})
+editor.on('connectionCreated', function(ouput_id, input_id, ouput_class, input_class) {
+  // do something
+})
+editor.on('connectionRemoved', function(ouput_id, input_id, ouput_class, input_class) {
+  // do something
+})
+editor.on('connectionSelected', function(ouput_id, input_id, ouput_class, input_class) {
+  // do something
+})
+editor.on('connectionUnselected', function() {
+  // do something
+})
+editor.on('connectionStart', function(output_id, output_class) {
+  // do something
+})
+editor.on('connectionCancel', function() {
+  // do something
+})
+editor.on('addReroute', function(id) {
+  // do something
+})
+editor.on('removeReroute', function(id) {
+  // do something
+})
+editor.on('rerouteMoved', function(id) {
+  // do something
+})
+editor.on('moduleCreated', function(name) {
+  // do something
+})
+editor.on('moduleChanged', function(name) {
+  // do something
+})
+editor.on('moduleRemoved', function(name) {
+  // do something
+})
+editor.on('mouseMove', function(x, y) {
+  // do something
+})
+editor.on('mouseUp', function(event) {
+  // do something
+})
+editor.on('keydown', function(event) {
+  // do something
+})
+editor.on('click', function(event) {
+  // do something
+})
+editor.on('clickEnd', function(event) {
+  // do something
+})
+editor.on('contextmenu', function(event) {
+  // do something
+})
+editor.on('zoom', function(zoom_level) {
+  // do something
+})
+editor.on('translate', function(x, y) {
+  // do something
+})
+editor.on('import', function() {
+  // do something
+})
+editor.on('export', function(data) {
+  // do something
+})
+
+-----------adding arrows
+https://github.com/jerosoler/Drawflow/issues/20
+
+==========================================
+
+

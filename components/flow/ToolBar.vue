@@ -14,7 +14,7 @@
         v-for="n in nodeTypes"
         :key="n"
         draggable="true"
-        :data-node="n.item"
+        :data-node="n.code"
         @dragstart="drag($event)"
       >
         <div class="node flex" :style="`background: ${n.color}`">
@@ -26,7 +26,8 @@
 </template>
 
 <script setup>
-const { nodeTypes } = useNodeTypes();
+const { nodeTypes } = defineProps(["nodeTypes"]);
+
 const emits = defineEmits({});
 const drag = (ev) => {
   console.log("toolbar : > " + ev);
