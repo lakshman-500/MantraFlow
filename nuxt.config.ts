@@ -12,4 +12,8 @@ export default defineNuxtConfig({
       tailwindcss: {},
     },
   },
+  build: {},
+  // imports:{
+  //   dirs:["components", "components/template" ]
+  // }
 });

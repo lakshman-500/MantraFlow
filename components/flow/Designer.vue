@@ -1,27 +1,11 @@
 <template>
   <div
-    class="mx-auto mt-4 max-w-7xl space-y-4 px-4 xs:px-8 sm:px-10 lg:px-16 pb-16 w-4/5"
+    class="mx-auto mt-4 max-w-7xl space-y-4 px-4 xs:px-8 sm:px-10 lg:px-16 pb-16 w-full"
   >
     <div class="mt-32 flex">
       <!--Node Types List..-->
 
-      <div class="shadow border w-64 mr-10 z-30 h-[290px] bg-red-100">
-        <ul>
-          <li
-            class="drag-drawflow mb-4"
-            v-for="n in nodeTypes"
-            :key="n"
-            draggable="true"
-            :data-node="n.item"
-            @dragstart="drag($event)"
-          >
-            <div class="node flex" :style="`background: ${n.color}`">
-              <!-- <img class="w-7" src="~/assets/images/i1.png"  /> -->
-              {{ n.name }}
-            </div>
-          </li>
-        </ul>
-      </div>
+      <FlowToolBar @addnode="drag" />
 
       <!--Drawing Board-->
       <div class="w-full bg-white">
@@ -35,10 +19,6 @@
     </div>
   </div>
 </template>
-
-<!-- <template>
-    <div id="drawflow_div"></div>
-</template> -->
 
 <script setup>
 import Drawflow from "drawflow";
@@ -85,10 +65,6 @@ onMounted(() => {
   editor.value.start();
 
   editor.value.registerNode("ToolBarNode", ToolBarNode, {}, {});
-  // editor.value.registerNode("Node2", Node2, {}, {});
-  // editor.value.registerNode("Node3", Node3, {}, {});
-
-  //  editor.value.import({"drawflow":{"Home":{"data":{"5":{"id":5,"name":"Node2","data":{"script":"(req,res) => {\n console.log(req);\n}"},"class":"Node2","html":"Node2","typenode":"vue","inputs":{"input_1":{"connections":[{"node":"6","input":"output_1"}]}},"outputs":{"output_1":{"connections":[]},"output_2":{"connections":[]}},"pos_x":1000,"pos_y":117},"6":{"id":6,"name":"Node1","data":{"url":"localhost/add", "method": "post"},"class":"Node1","html":"Node1","typenode":"vue","inputs":{},"outputs":{"output_1":{"connections":[{"node":"5","output":"input_1"}]}},"pos_x":137,"pos_y":89}}}}})
 });
 
 function exportEditor() {
@@ -97,6 +73,8 @@ function exportEditor() {
 }
 
 const drag = (ev) => {
+  console.log(ev.target);
+
   if (ev.type === "touchstart") {
     mobile_item_selec = ev.target
       .closest(".drag-drawflow")
@@ -165,18 +143,6 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
     "ToolBarNode",
     "vue"
   );
-
-  // editor.value.addNode(
-  //   name,
-  //   nodeSelected.input,
-  //   nodeSelected.output,
-  //   pos_x,
-  //   pos_y,
-  //   "ToolBarNode",
-  //   {},
-  //   name,
-  //   "vue"
-  // );
 }
 </script>
 
@@ -198,25 +164,27 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
   padding: 10px 10px;
 }
 .column li {
-  background: transparent;
+  background: white;
+  /* transparent; */
 }
 
 .node {
-  border-radius: 8px;
-  border: 2px solid #494949;
+  border-radius: 1px;
+  border: 1px solid #494949;
   display: block;
   height: 60px;
   line-height: 40px;
-  padding: 10px;
+  padding: 20px;
   margin: 10px 0px;
   cursor: move;
 }
 #drawflow_div {
+  border: #494949 solid 1px;
   width: 100%;
   height: 690px;
   text-align: initial;
-  background: #2b2c30;
+  background: white;
   background-size: 20px 20px;
-  background-image: radial-gradient(#494949 1px, transparent 1px);
+  background-image: radial-gradient(#dddddd 1px, transparent 1px);
 }
 </style>

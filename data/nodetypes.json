@@ -6,7 +6,8 @@
                "item": "Node1",
              "color": "#49494970",
                 "input":1,
-            "output":1
+            "output":1,
+            "template": "Basic"
         },
         {
             "name": "Stop",
@@ -24,7 +25,8 @@
                "item": "Node3",
              "color": "#99434970",
                 "input":1,
-            "output":1   
+            "output":1   ,
+            "template": "TemplateSendEmail"
         },
         {
             "name": "Send Message",
