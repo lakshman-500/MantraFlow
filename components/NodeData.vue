@@ -1,11 +1,22 @@
 <script setup>
-const { flow } = useFlow();
+const { nodeTypes } = useNodeTypes();
 
-const emits = defineEmits(["addNode"]);
+const emits = defineEmits(["emitnode"]);
 
-const addNode = (f) => {
-  console.log("emit : add ..");
-  emits("addNode", f);
+const addnode = (ev, f) => {
+  let mobile_item_selec = "";
+  let mobile_last_move = null;
+  if (ev.type === "touchstart") {
+    mobile_item_selec = ev.target
+      .closest(".drag-drawflow")
+      .getAttribute("data-node");
+  } else {
+    console.log(ev.target.getAttribute("data-node"));
+    ev.dataTransfer.setData("node", ev.target.getAttribute("data-node"));
+  }
+  console.log(mobile_item_selec);
+  console.log(f.name);
+  emits("emitnode", ev, f, mobile_item_selec);
 };
 </script>
 
@@ -13,13 +24,13 @@ const addNode = (f) => {
   <div class="w-full">
     <p
       class="drag-drawflow mb-4 border border-blue rounded px-3 py-1"
-      v-for="f in flow"
+      v-for="f in nodeTypes"
       :key="f"
       draggable="true"
-      :data-node="n.item"
-      @dragstart="addNode(f)"
+      :data-node="f.item"
+      @dragstart="addnode($event, f)"
     >
-      {{ f.name }}
+      {{ f.name }} --
     </p>
   </div>
 </template>

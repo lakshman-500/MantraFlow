@@ -12,10 +12,13 @@
     "@nuxt/image": "^0.7.1",
     "@nuxt/ui": "^0.4.1",
     "@types/drawflow": "^0.0.5",
-    "nuxt": "^3.3.3"
+    "nuxt": "^3.3.3",
+    "@vitejs/plugin-vue": "^4.1.0"
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.6.5",
-    "drawflow": "^0.0.59"
+    "drawflow": "^0.0.59",
+    "@element-plus/icons": "^0.0.11",    
+    "element-plus": "2.3.3"
   }
 }

@@ -1,56 +1,56 @@
 [
         {            
-            "name": "globe",
+            "name": "Start",
             "code": "111-222-333",
             "icon":"i1",
                "item": "Node1",
              "color": "#49494970",
-                "input":0,
+                "input":1,
             "output":1
         },
         {
-            "name": "bulb",
+            "name": "Stop",
             "code": "211-222-333",
             "icon":"i2" ,
-            "item": "Node2",
+            "item": "BaseNode",
              "color": "#12424870",
-                "input":0,
+                "input":1,
             "output":1    
         },
         {
-            "name": "brain",
+            "name": "Send Mail",
             "code": "311-222-333",
             "icon":"i3"  ,
                "item": "Node3",
              "color": "#99434970",
-                "input":0,
+                "input":1,
             "output":1   
         },
         {
-            "name": "process",
+            "name": "Send Message",
             "code": "411-222-333",
             "icon":"i4" ,
                "item": "Node4",
              "color": "#19493970",
-                "input":0,
+                "input":1,
             "output":1    
         },
         {
-            "name": "target",
+            "name": "Call Customer",
             "code": "511-202-333",
             "icon":"i5" ,
                "item": "Node4",
              "color": "#69474900",
-                "input":0,
+                "input":1,
             "output":1    
         },
          {
-            "name": "strategy",
+            "name": "Invite For Meeting",
             "code": "511-212-333",
             "icon":"i6"    ,
                "item": "Node6",
              "color": "#29414910",
-                "input":0,
+                "input":1,
             "output":1 
         }
     ]
