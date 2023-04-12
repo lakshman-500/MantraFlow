@@ -1,21 +1,19 @@
 <template>
-  <div class="w-full">
-    <div class="w-full mt-1 flex px-1">
-      <!--Node Types List..-->
+  <div class="w-full mt-1 flex px-1">
+    <!--Node Types List..-->
 
-      <FlowToolBar @addnode="drag" :nodeTypes="nodeTypes" class="w-[1/4]" />
+    <!-- <FlowToolBar @addnode="drag" :nodeTypes="nodeTypes" class="w-[1/4]" /> -->
 
-      <!--Drawing Board-->
-      <div class="w-full bg-white">
-        <div
-          id="drawflow_div"
-          ref="drawflow_div"
-          @drop="drop($event)"
-          @dragover="allowDrop($event)"
-        ></div>
-      </div>
-      <!-- <div class="w-[300px] bg-red"></div> -->
+    <!--Drawing Board dined with div id :[drawflow_div] -->
+    <div class="w-full bg-white">
+      <div
+        id="drawflow_div"
+        ref="drawflow_div"
+        @drop="drop($event)"
+        @dragover="allowDrop($event)"
+      ></div>
     </div>
+    <!-- <div class="w-[300px] bg-red"></div> -->
   </div>
 </template>
 
@@ -33,9 +31,34 @@ import {
   ref,
 } from "vue";
 import ToolBarNode from "./ToolBarNode.vue";
-
+import { propsToAttrMap } from "@vue/shared";
+let isMounted = false;
 //const { nodeTypes } = useNodeTypes();
-const { nodeTypes } = defineProps(["nodeTypes"]);
+const props = defineProps(["nodeTypes", "zoomLevel"]);
+//const props = defineProps(["zoomLevel"]);
+watch(
+  () => props.zoomLevel,
+  (nv, ov) => {
+    if (isMounted) {
+      nv > ov ? editor.value.zoom_in() : editor.value.zoom_out();
+    }
+  },
+  { immediate: true }
+);
+const nodeTypes = ref({});
+watch(
+  () => props.nodeTypes,
+  (nv, ov) => {
+    if (isMounted) {
+      console.log("nodetpes set");
+      nodeTypes.value = nv;
+    }
+  },
+  { immediate: true }
+);
+function watchZomm() {
+  editor.value.nextTick();
+}
 
 const editor = shallowRef({});
 const internalInstance = getCurrentInstance();
@@ -47,6 +70,8 @@ const dialogVisible = ref(false);
 const dialogData = ref({});
 const emits = defineEmits({});
 onMounted(async () => {
+  nodeTypes.value = props.nodeTypes;
+
   var elements = document.getElementsByClassName("drag-drawflow");
   for (var i = 0; i < elements.length; i++) {
     elements[i].addEventListener("touchend", drop, false);
@@ -61,6 +86,7 @@ onMounted(async () => {
     internalInstance.appContext.app._context
   );
   editor.value.on("nodeSelected", function (id) {
+    // flowData.value = "...node selected...";
     console.log("node selected is:-> " + id);
     let x = editor.value.getNodeFromId(id);
     console.log(x.name);
@@ -75,6 +101,10 @@ onMounted(async () => {
   editor.value.registerNode("ToolBarNode", ToolBarNode, {}, {});
 
   addArrows(editor.value);
+
+  //addNodeToDrawFlow(data, ev.clientX, ev.clientY);
+
+  isMounted = true;
   await nextTick();
 });
 
@@ -229,7 +259,7 @@ function addArrows(editor) {
     }
   };
 }
-
+// const flowData = defineProps({ data: String });
 // to export data
 function exportEditor() {
   dialogData.value = editor.value.export();
@@ -237,16 +267,10 @@ function exportEditor() {
 }
 
 const drag = (ev) => {
-  console.log(ev.target);
-
-  if (ev.type === "touchstart") {
-    mobile_item_selec = ev.target
-      .closest(".drag-drawflow")
-      .getAttribute("data-node");
-  } else {
-    ev.dataTransfer.setData("node", ev.target.getAttribute("data-node"));
-  }
+  console.log("toolbar : > " + ev);
+  emits("addnode", ev);
 };
+
 const drop = (ev) => {
   if (ev.type === "touchend") {
     var parentdrawflow = document
@@ -266,6 +290,7 @@ const drop = (ev) => {
   } else {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("node");
+
     addNodeToDrawFlow(data, ev.clientX, ev.clientY);
   }
 };
@@ -295,7 +320,7 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
       (editor.value.precanvas.clientHeight /
         (editor.value.precanvas.clientHeight * editor.value.zoom));
 
-  const nodeSelected = nodeTypes.find((ele) => ele.code == name);
+  const nodeSelected = nodeTypes.value.find((ele) => ele.code == name);
   editor.value.addNode(
     nodeSelected.name,
     nodeSelected.input,
@@ -307,6 +332,9 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
     "ToolBarNode",
     "vue"
   );
+  var x = editor.value.export();
+  console.log("X: " + x);
+  emits("flowDataChanged", x);
 }
 </script>
 

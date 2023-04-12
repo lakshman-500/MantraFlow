@@ -4,6 +4,11 @@
 <template>
   <div class="content-end">
     <ul class="flex mr-[300px] gap-4 justify-end p-1">
+      <div class="flex gap-3 border border-outline">
+        <button @click="zoomout" class="bg-blue mouse rounded px-2">-</button>
+        <label>zoom</label>
+        <button @click="zoomin" class="bg-blue mouse rounded px-2">+</button>
+      </div>
       <button class="bg-blue mouse rounded px-2">Remove Connection</button>
       <button class="bg-blue mouse rounded px-2">Remove Node</button>
       <!-- <button class="bg-blue mouse rounded px-2" @click="dialogVisible =">
@@ -13,10 +18,14 @@
   </div>
   <div class="w-full flex">
     <div class="w-full mt-1 flex">
+      <FlowToolBar @addnode="drag" :nodeTypes="nodeTypes" class="w-[1/4]" />
       <FlowDesigner
+        class="w-[3/4]"
         @nodeSelected="nodeSelected"
         :nodeTypes="nodeTypes"
         @nodeAdded="nodeAdded"
+        @flowDataChanged="flowDataChanged"
+        :zoomLevel="zoomLevel"
       />
     </div>
     <div class="w-[300px]">
@@ -59,7 +68,7 @@
           </ul>
         </div>
         <div id="flowJson">
-          flow json
+          {{ flowData }}
           <!-- <ul>
       <li v-for="l in dialogData">{{ l }}</li>
     </ul> -->
@@ -73,14 +82,34 @@
 const { nodeTypes } = useNodeTypes();
 const dialogVisible = ref(false);
 const dialogData = ref([]); //defineProps(["flowData"]);
-
-const nodeSelected = (nodeInfo) => {
-  console.log(`"Node Selected is  (${nodeInfo.id}, ${nodeInfo.name})`);
-  var val = `"Node Selected is  (${nodeInfo.id}, ${nodeInfo.name})`;
-  dialogData.value = [...dialogData.value, val];
-  //dialogData.value = `"Node Selected is  (${nodeInfo.id}, ${nodeInfo.name})`;
+const flowData = ref([]); ///defineProps({ data: String });
+const flowDataChanged = (data) => {
+  console.log("received......>> " + data);
+  flowData.value = data;
 };
+const nodeSelected = (nodeInfo) => {
+  console.log(`Node (${nodeInfo.id}, ${nodeInfo.name})`);
+  var val = `Node (${nodeInfo.id}, ${nodeInfo.name})`;
+  dialogData.value = [...dialogData.value, val];
+};
+const zoomLevel = ref(0.1);
+function zoomin() {
+  zoomLevel.value += 0.1;
+}
+function zoomout() {
+  zoomLevel.value -= 0.1;
+}
+const drag = (ev) => {
+  console.log(ev.target);
 
+  if (ev.type === "touchstart") {
+    mobile_item_selec = ev.target
+      .closest(".drag-drawflow")
+      .getAttribute("data-node");
+  } else {
+    ev.dataTransfer.setData("node", ev.target.getAttribute("data-node"));
+  }
+};
 const nodeAdded = (nodeInfo) => {
   dialogData.value += `"Node Selected is  (${nodeInfo.id}, ${nodeInfo.name})`;
 };
