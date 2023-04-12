@@ -1,11 +1,9 @@
 <template>
-  <div
-    class="mx-auto mt-4 max-w-7xl space-y-4 px-4 xs:px-8 sm:px-10 lg:px-16 pb-16 w-full"
-  >
-    <div class="mt-32 flex">
+  <div class="w-full">
+    <div class="w-full mt-1 flex px-1">
       <!--Node Types List..-->
 
-      <FlowToolBar @addnode="drag" :nodeTypes="nodeTypes" />
+      <FlowToolBar @addnode="drag" :nodeTypes="nodeTypes" class="w-[1/4]" />
 
       <!--Drawing Board-->
       <div class="w-full bg-white">
@@ -16,6 +14,7 @@
           @dragover="allowDrop($event)"
         ></div>
       </div>
+      <!-- <div class="w-[300px] bg-red"></div> -->
     </div>
   </div>
 </template>
@@ -231,6 +230,7 @@ function addArrows(editor) {
   };
 }
 
+// to export data
 function exportEditor() {
   dialogData.value = editor.value.export();
   dialogVisible.value = true;

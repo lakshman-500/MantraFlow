@@ -1,9 +1,7 @@
-<!-- 
-  Invoke Main Builder.. 
-  go to Main Builder  
- -->
 <template>
   <div>
-    <FlowMainBuilder />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
