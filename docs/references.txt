@@ -123,4 +123,9 @@ https://github.com/jerosoler/Drawflow/issues/20
 
 ==========================================
 
+----------event before deleting...
+https://github.com/jerosoler/Drawflow/issues/10
 
+
+--- several useful questions..
+https://github.com/jerosoler/Drawflow/issues/10
