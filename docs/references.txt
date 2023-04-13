@@ -121,6 +121,12 @@ editor.on('export', function(data) {
 -----------adding arrows
 https://github.com/jerosoler/Drawflow/issues/20
 
+---------adding arrows fro vertical connection lines
+https://github.com/jerosoler/Drawflow/issues/414
+
+--------labels for connector lines
+https://github.com/jerosoler/Drawflow/issues/18
+
 ==========================================
 
 ----------event before deleting...
@@ -129,3 +135,4 @@ https://github.com/jerosoler/Drawflow/issues/10
 
 --- several useful questions..
 https://github.com/jerosoler/Drawflow/issues/10
+

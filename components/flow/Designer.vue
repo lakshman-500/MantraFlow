@@ -33,9 +33,26 @@ import {
 import ToolBarNode from "./ToolBarNode.vue";
 import { propsToAttrMap } from "@vue/shared";
 let isMounted = false;
-//const { nodeTypes } = useNodeTypes();
-const props = defineProps(["nodeTypes", "zoomLevel"]);
-//const props = defineProps(["zoomLevel"]);
+
+const props = defineProps(["nodeTypes", "zoomLevel", "canAddOutput"]);
+watch(
+  () => props.canAddOutput,
+  (nv, ov) => {
+    if (isMounted && nv) {
+      console.log("watching output");
+      addOutput();
+    }
+  },
+  { immediate: true }
+);
+function addOutput() {
+  if (selectedNode.value) {
+    console.log("Go Ahead,add output to selected node");
+    editor.value.addNodeOutput(selectedNode.value.id);
+  } else {
+    console.log("cannot add node, selected node is null");
+  }
+}
 watch(
   () => props.zoomLevel,
   (nv, ov) => {
@@ -94,6 +111,7 @@ onMounted(async () => {
     // riase node selection event to the listener with ID of NODE >>
     // this unique id is assignedby drawflow, not business specific id
     emits("nodeSelected", { id: id, name: x.name });
+    selectedNode.value = x;
   });
 
   editor.value.start();
@@ -106,9 +124,173 @@ onMounted(async () => {
 
   isMounted = true;
   await nextTick();
+  editor.value.zoom_out();
+  editor.value.zoom_out();
+  editor.value.zoom_out();
+  addNodeToDrawFlow_First();
+  dontLetDeleteFirstNode(editor.value);
+  attachDeleteConfirmation(editor.value);
 });
+function attachDeleteConfirmation(editor) {
+  editor.removeNodeId = function (id) {
+    if (id === "node-1") {
+      return;
+    } else {
+      console.log("ABout to delete: " + id);
+      var r = confirm("Are you sure to delete?");
+      if (r == true) {
+        this.removeConnectionNodeId(id);
+        var moduleName = this.getModuleFromNodeId(id.slice(5));
+        if (this.module === moduleName) {
+          document.getElementById(id).remove();
+        }
+        delete this.drawflow.drawflow[moduleName].data[id.slice(5)];
+        this.dispatch("nodeRemoved", id.slice(5));
+      }
+    }
+  };
+}
 
+function dontLetDeleteFirstNode(editor) {
+  editor.on("contextmenu", (e) => {
+    const idNode = 1; // Example with nodeId ===  1
+    if (editor.node_selected !== null) {
+      if (editor.node_selected.id === `node-${idNode}`) {
+        editor.node_selected = null;
+      }
+    }
+  });
+}
+
+const selectedNode = ref({});
+// function addArrows(editor) {
+//   editor.createCurvature = function (
+//     start_pos_x,
+//     start_pos_y,
+//     end_pos_x,
+//     end_pos_y,
+//     curvature_value,
+//     type
+//   ) {
+//     const fix_arrow_distance = 15;
+//     var line_x = start_pos_x;
+//     var line_y = start_pos_y;
+//     var x = end_pos_x;
+//     var y = end_pos_y - fix_arrow_distance;
+//     var curvature = curvature_value;
+//     //type openclose open close other
+//     let line_path = "";
+//     switch (type) {
+//       case "open":
+//         if (start_pos_y >= end_pos_y) {
+//           var hy1 = line_y + Math.abs(y - line_y) * curvature;
+//           var hy2 = y - Math.abs(y - line_y) * (curvature * -1);
+//         } else {
+//           var hy1 = line_y + Math.abs(y - line_y) * curvature;
+//           var hy2 = y - Math.abs(y - line_y) * curvature;
+//         }
+//         line_path +=
+//           " M " +
+//           line_x +
+//           " " +
+//           line_y +
+//           " C " +
+//           line_x +
+//           " " +
+//           hy1 +
+//           " " +
+//           x +
+//           " " +
+//           hy2 +
+//           " " +
+//           x +
+//           "  " +
+//           y;
+
+//         break;
+//       case "close":
+//         if (start_pos_y >= end_pos_y) {
+//           var hy1 = line_y + Math.abs(y - line_y) * (curvature * -1);
+//           var hy2 = y - Math.abs(y - line_y) * curvature;
+//         } else {
+//           var hy1 = line_y + Math.abs(y - line_y) * curvature;
+//           var hy2 = y - Math.abs(y - line_y) * curvature;
+//         }
+//         line_path +=
+//           " M " +
+//           line_x +
+//           " " +
+//           line_y +
+//           " C " +
+//           line_x +
+//           " " +
+//           hy1 +
+//           " " +
+//           x +
+//           " " +
+//           hy2 +
+//           " " +
+//           x +
+//           "  " +
+//           y;
+//         break;
+//       case "other":
+//         if (start_pos_y >= end_pos_y) {
+//           var hy1 = line_y + Math.abs(y - line_y) * (curvature * -1);
+//           var hy2 = y - Math.abs(y - line_y) * (curvature * -1);
+//         } else {
+//           var hy1 = line_y + Math.abs(y - line_y) * curvature;
+//           var hy2 = y - Math.abs(y - line_y) * curvature;
+//         }
+//         line_path +=
+//           " M " +
+//           line_x +
+//           " " +
+//           line_y +
+//           " C " +
+//           line_x +
+//           " " +
+//           hy1 +
+//           " " +
+//           x +
+//           " " +
+//           hy2 +
+//           " " +
+//           x +
+//           "  " +
+//           y;
+//         break;
+//       default:
+//         var hy1 = line_y + Math.abs(y - line_y) * curvature;
+//         var hy2 = y - Math.abs(y - line_y) * curvature;
+
+//         line_path +=
+//           " M " +
+//           line_x +
+//           " " +
+//           line_y +
+//           " C " +
+//           line_x +
+//           " " +
+//           hy1 +
+//           " " +
+//           x +
+//           " " +
+//           hy2 +
+//           " " +
+//           x +
+//           "  " +
+//           y;
+//     }
+//     const arrow_path = ` M ${x} ${y} L ${x - 5} ${y - 8} L ${x + 5} ${
+//       y - 8
+//     } L ${x} ${y} Z`;
+//     return line_path + arrow_path;
+//   };
+// }
 function addArrows(editor) {
+  editor.curvature = 1.0;
+  // editor.node_style = "Vertical";
   editor.createCurvature = function (
     start_pos_x,
     start_pos_y,
@@ -303,8 +485,29 @@ let mobile_last_move = null;
 function positionMobile(ev) {
   mobile_last_move = ev;
 }
+function addNodeToDrawFlow_First() {
+  console.log("adding node by id: " + name);
+  const nodeSelected = nodeTypes.value[0]; //.find((ele) => ele.code == name);
 
+  let pos_x = -100;
+  let pos_y = -100;
+
+  editor.value.addNode(
+    nodeSelected.name,
+    nodeSelected.input,
+    nodeSelected.output,
+    pos_x,
+    pos_y,
+    name,
+    {},
+    "ToolBarNode",
+    "vue"
+  );
+  var x = editor.value.export();
+  emits("flowDataChanged", x);
+}
 function addNodeToDrawFlow(name, pos_x, pos_y) {
+  console.log("adding node: " + name);
   pos_x =
     pos_x *
       (editor.value.precanvas.clientWidth /

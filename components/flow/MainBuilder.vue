@@ -11,6 +11,12 @@
       </div>
       <button class="bg-blue mouse rounded px-2">Remove Connection</button>
       <button class="bg-blue mouse rounded px-2">Remove Node</button>
+      <button @click="addOutput" class="bg-blue mouse rounded px-2">
+        + o/p
+      </button>
+      <button @click="deleteOutput" class="bg-blue mouse rounded px-2">
+        - o/p
+      </button>
       <!-- <button class="bg-blue mouse rounded px-2" @click="dialogVisible =">
         Logs
       </button> -->
@@ -26,6 +32,7 @@
         @nodeAdded="nodeAdded"
         @flowDataChanged="flowDataChanged"
         :zoomLevel="zoomLevel"
+        :canAddOutput="canAddOutput"
       />
     </div>
     <div class="w-[300px]">
@@ -61,17 +68,17 @@
               >{{ tab.name }}</a
             >
           </nav>
-        </div>
-        <div id="messages">
-          <ul>
-            <li v-for="l in dialogData">{{ l }}</li>
-          </ul>
-        </div>
-        <div id="flowJson">
-          {{ flowData }}
-          <!-- <ul>
+          <!-- <div id="#messages">
+            <ul>
+              <li v-for="l in dialogData">{{ l }}</li>
+            </ul>
+          </div> -->
+          <div id="#flowJson">
+            {{ flowData }}
+            <!-- <ul>
       <li v-for="l in dialogData">{{ l }}</li>
     </ul> -->
+          </div>
         </div>
       </div>
     </div>
@@ -86,12 +93,15 @@ const flowData = ref([]); ///defineProps({ data: String });
 const flowDataChanged = (data) => {
   console.log("received......>> " + data);
   flowData.value = data;
+  nextTick();
 };
 const nodeSelected = (nodeInfo) => {
   console.log(`Node (${nodeInfo.id}, ${nodeInfo.name})`);
   var val = `Node (${nodeInfo.id}, ${nodeInfo.name})`;
   dialogData.value = [...dialogData.value, val];
 };
+
+const canAddOutput = ref(0);
 const zoomLevel = ref(0.1);
 function zoomin() {
   zoomLevel.value += 0.1;
@@ -99,6 +109,12 @@ function zoomin() {
 function zoomout() {
   zoomLevel.value -= 0.1;
 }
+function deleteOutput() {}
+function addOutput() {
+  console.log("Add Output called..");
+  canAddOutput.value++;
+}
+
 const drag = (ev) => {
   console.log(ev.target);
 
@@ -126,7 +142,7 @@ function exportEditor() {
 //}
 
 const tabs = [
-  { name: "Messages", href: "#messages", current: true },
+  // { name: "Messages", href: "#messages", current: true },
   { name: "Flow Json.", href: "#flowJson", current: false },
 ];
 </script>

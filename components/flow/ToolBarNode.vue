@@ -7,7 +7,7 @@
 <template>
   <div ref="el">
     <component
-      :is="nodeType == 'Basic' ? basicComp : altComp"
+      :is="nodeType === 'Basic' ? basicComp : altComp"
       :nodeSelected="nodeSelected"
     />
   </div>
@@ -50,8 +50,8 @@ onMounted(async () => {
   console.log(dataNode.value.name);
 
   nodeSelected.value = nodeTypes.find((ele) => ele.name == dataNode.value.name);
-
-  console.log(nodeSelected.value);
+  await nextTick();
+  console.log("NODE SELECTED: " + nodeSelected.value.template);
 
   if (
     nodeSelected.value.template === undefined ||
@@ -62,9 +62,16 @@ onMounted(async () => {
     nodeType.value = "Basic";
     basicComp.value = resolveComponent("TemplateBasic");
   } else {
-    nodeType.value = nodeSelected.value.template;
-    altComp.value = resolveComponent("TemplateSendEmail");
+    nodeType.value = "Other"; //nodeSelected.value.template;
+    temp.value = nodeSelected.value.template;
+    //altComp.value = resolveComponent(nodeSelected.value.template); //"TemplateSendEmail");
+    console.log("ready to render========>" + temp.value);
+    if (nodeSelected.value.template === "TemplateSendEmail") {
+      altComp.value = resolveComponent("TemplateSendEmail");
+    }
+    //altComp.value = resolveComponent("" + nodeSelected.value.template); //"TemplateSendEmail");
   }
   await nextTick();
 });
+const temp = ref("");
 </script>

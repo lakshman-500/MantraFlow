@@ -7,18 +7,22 @@
         2. Class : should be used to identify which Node Template is to be used when dropped on to Designer
  -->
 <template>
-  <div class="shadow border w-64 mr-10 z-30 h-[290px] bg-red-100">
+  <div class="shadow w-64 z-30">
     <ul>
       <li
+        :hidden="index === 0"
         class="drag-drawflow"
-        v-for="n in nodeTypes"
+        v-for="(n, index) in nodeTypes"
         :key="n"
         draggable="true"
         :data-node="n.code"
         @dragstart="drag($event)"
       >
-        <div class="node flex" :style="`background: ${n.color}`">
-          {{ n.name }}
+        <!-- :hidden="`${index} == 0`" -->
+        <!-- :style="`background: ${n.color}`" -->
+        <div class="flex gap-4 py-3 px-2">
+          <img :src="`./${n.icon}.png`" class="w-[20px] h-[20px]" />
+          <div>{{ n.name }}</div>
         </div>
       </li>
     </ul>
