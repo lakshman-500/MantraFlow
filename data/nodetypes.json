@@ -2,7 +2,7 @@
         {            
             "name": "Start",
             "code": "111-222-333",
-            "icon":"i1",
+            "icon":"start",
                "item": "Node1",
              "color": "#49494970",
                 "input":1,
@@ -11,8 +11,9 @@
         },
         {
             "name": "Stop",
+            "description": "With no required input from the visitor.",
             "code": "211-222-333",
-            "icon":"i2" ,
+            "icon":"stop" ,
             "item": "BaseNode",
              "color": "#12424870",
                 "input":1,
@@ -20,8 +21,9 @@
         },
         {
             "name": "Send Mail",
+            "description": "With no required input from the visitor.",
             "code": "311-222-333",
-            "icon":"i3"  ,
+            "icon":"send_mail"  ,
                "item": "Node3",
              "color": "#99434970",
                 "input":1,
@@ -30,8 +32,9 @@
         },
         {
             "name": "Send Message",
+            "description": "With no required input from the visitor.",
             "code": "411-222-333",
-            "icon":"i4" ,
+            "icon":"send_messages" ,
                "item": "Node4",
              "color": "#19493970",
                 "input":1,
@@ -39,8 +42,9 @@
         },
         {
             "name": "Call Customer",
+            "description": "With no required input from the visitor.",
             "code": "511-202-333",
-            "icon":"i5" ,
+            "icon":"call" ,
                "item": "Node4",
              "color": "#69474900",
                 "input":1,
@@ -48,8 +52,9 @@
         },
          {
             "name": "Invite For Meeting",
+            "description": "With no required input from the visitor.",
             "code": "511-212-333",
-            "icon":"i6"    ,
+            "icon":"invite"    ,
                "item": "Node6",
              "color": "#29414910",
                 "input":1,

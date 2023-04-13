@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer base{
+    html {
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        tab-size: 4;
+        font-family: Inter var, sans-serif !important;
+        font-feature-settings: "cv03", "cv04", "cv11";
+        font-variation-settings: normal;
+    }
+}

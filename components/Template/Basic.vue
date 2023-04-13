@@ -1,14 +1,15 @@
 <template>
-  <div class="title-box color-black">
-    <div class="flex gap-4 py-3 px-2">
-      <img :src="`./${nodeSelected.icon}.png`" class="w-[20px] h-[20px]" />
-      <div>{{ nodeSelected.name }}</div>
+  <div>
+  <div class="text-gray-900">
+    <div class="flex gap-4 mb-6 items-center">
+      <img :src="`./${nodeSelected.icon}.png`"  class="w-[40px] h-[40px]" />
+      <h4 class="text-2xl font-medium">{{ nodeSelected.name }}</h4>
     </div>
   </div>
-  <div ref="el" class="border bg-blue">
+  <div ref="el" class="border  border-dashed border-gray-400 rounded-md p-2">
     <!-- <p class="border bg-blue">{{ nodeSelected.name }}</p> -->
-    <p class="border bg-blue">{{ nodeSelected.code }}</p>
-    <p class="border bg-blue">
+    <p class="border bg-indigo-500 text-xl mb-1 p-2 rounded-md text-center">{{ nodeSelected.code }}</p>
+    <p class="border bg-green-500 text-xl mb-1 p-2 rounded-md text-center">
       In: {{ nodeSelected.input }} &amp; Out: {{ nodeSelected.output }}
     </p>
     <TemplateBasicDialog :header="'Sample Dialog'">
@@ -24,6 +25,7 @@
       <option>sdfd</option>
       <option>dadsf</option>
     </select> -->
+  </div>
   </div>
 </template>
 

@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="justify-center">
     <button
       type="button"
@@ -64,6 +65,7 @@
       </div>
     </Dialog>
   </TransitionRoot>
+  </div>
 </template>
 
 <script setup lang="ts">

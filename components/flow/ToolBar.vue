@@ -7,7 +7,7 @@
         2. Class : should be used to identify which Node Template is to be used when dropped on to Designer
  -->
 <template>
-  <div class="shadow w-64 z-30">
+  <div class="shadow border w-[28rem] mr-10 z-30 bg-gray-100 h-screen p-4">
     <ul>
       <li
         :hidden="index === 0"
@@ -20,9 +20,18 @@
       >
         <!-- :hidden="`${index} == 0`" -->
         <!-- :style="`background: ${n.color}`" -->
-        <div class="flex gap-4 py-3 px-2">
-          <img :src="`./${n.icon}.png`" class="w-[20px] h-[20px]" />
-          <div>{{ n.name }}</div>
+        <div class="px-4 py-3 rounded-md bg-white border-transparent border-gray-200 ring-1 ring-insert ring-gray-200 mb-2" >
+          <div class="flex gap-3 items-center">
+           
+            <img :src="`./${n.icon}.png`" class="w-[35px] h-[35px]" />
+          <div>
+         <h4 class="mb-1 font-medium text-sm"> {{ n.name }}</h4>
+         <p class="text-xs text-gray-500 leading-[1.5]">
+          {{ n.description }}
+          </p>
+        </div>
+        </div>
+       
         </div>
       </li>
     </ul>
