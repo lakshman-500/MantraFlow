@@ -135,10 +135,15 @@ onMounted(async () => {
     console.log("node selected is:-> " + id);
     let x = editor.value.getNodeFromId(id);
     console.log(x.name);
+    console.log(x.data);
 
     // riase node selection event to the listener with ID of NODE >>
     // this unique id is assignedby drawflow, not business specific id
-    emits("nodeSelected", { id: id, name: x.name });
+
+    let ins = x.inputs;
+    let outs = x.outputs;
+
+    emits("nodeSelected", { id: id, name: x.name, inputs: ins, outputs: outs });
     selectedNode.value = x;
   });
 
@@ -619,7 +624,7 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
 }
 #drawflow_div {
   width: 100%;
-  height: 690px;
+  height: 100%;
   text-align: initial;
   /* background: white;
   background-size: 20px 20px;

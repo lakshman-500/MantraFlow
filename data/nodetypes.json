@@ -5,7 +5,7 @@
             "icon":"start",
                "item": "Node1",
              "color": "#49494970",
-                "input":1,
+                "input":0,
             "output":1,
             "template": "Basic"
         },
@@ -17,7 +17,7 @@
             "item": "BaseNode",
              "color": "#12424870",
                 "input":1,
-            "output":1    
+            "output":0    
         },
         {
             "name": "Send Mail",

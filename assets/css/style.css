@@ -40,8 +40,14 @@
     left: -33px;
     border-radius: 4px;
     background-color: yellow;
+    
 }
-
+defaultNodeInput{
+    left: -33px;
+    border-radius: 4px;
+    background-color: green;
+    
+}
 .drawflow .drawflow-node .output {
     right: -15px;
     background-color: dodgerblue;
@@ -77,3 +83,20 @@
 .el-drawer__body {
     color: black;
 }
+
+.drawflow-node.multiple .outputs .output:nth-child(1):before {
+    display: block;
+    content: "Yes";
+    font-weight: bold;
+    color: black;
+    position: relative;
+    right: 30px;
+  }
+ .drawflow-node.multiple .outputs .output:nth-child(2):before {
+    display: block;
+    content: "No";
+    color: black;
+    position: relative;
+    right: 30px;
+ } 
+

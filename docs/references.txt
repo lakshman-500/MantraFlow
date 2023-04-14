@@ -136,3 +136,30 @@ https://github.com/jerosoler/Drawflow/issues/10
 --- several useful questions..
 https://github.com/jerosoler/Drawflow/issues/10
 
+
+======= to update connections when nodes are imported..
+async importData() {
+      try {
+        const res = await this.api.get(`/nodes`)
+        const importData = prepareDataForImport(res.data)
+        this.editor.import(importData)
+        setTimeout(() => {
+          res.data.forEach((step: any) => {
+            this.editor.updateConnectionNodes(`node-${step.uiId}`)
+          })
+        }, 500)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+
+---------------------
+https://michaelnthiessen.com/dynamically-add-class-name/
+-------------------------    
+
+issues with drawing connections..
+https://github.com/jerosoler/Drawflow/issues/43
+
+
+

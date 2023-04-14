@@ -6,8 +6,13 @@
     class="h-screen bg-gray-950 bg-[length:60px] bg-[url('https://storage.googleapis.com/static.helloumi.com/daisho/img/grid.png')]"
   >
     <div class="">
-      <ul class=" flex gap-3 fixed top-5 right-[17rem]">
-        <input class="flex gap-2 border border-outline rounded-md" type="file" ref="doc" @change="readFile()" />
+      <ul class="flex gap-3 fixed top-5 right-[17rem]">
+        <input
+          class="flex gap-2 border border-outline rounded-md"
+          type="file"
+          ref="doc"
+          @change="readFile()"
+        />
         <div class="flex gap-2 border border-outline rounded-md">
           <button @click="zoomout" class="bg-gray-100 mouse px-2 rouned-s-md">
             -
@@ -68,7 +73,7 @@
                       !selected,
                   }"
                 >
-                  Flow Json
+                  Json
                 </span></Tab
               >
               <Tab v-slot="{ selected }">
@@ -92,7 +97,7 @@
                       !selected,
                   }"
                 >
-                  Imported File
+                  File
                 </span></Tab
               >
             </TabList>
@@ -133,7 +138,34 @@ const flowDataChanged = (data) => {
   nextTick();
 };
 const nodeSelected = (nodeInfo) => {
-  console.log(`Node (${nodeInfo.id}, ${nodeInfo.name})`);
+  console.log(
+    `Node (${nodeInfo.id}, ${nodeInfo.name}, ${nodeInfo.inputs}, ${nodeInfo.outputs})`
+  );
+  var ostr = JSON.stringify(nodeInfo.outputs);
+  console.log("o/p connections: " + ostr);
+  var outNodes = {};
+  outNodes = JSON.parse(ostr);
+  for (let x in outNodes) {
+    console.log(x + " : " + outNodes[x]);
+    var p = outNodes[x];
+    for (let y in p) {
+      console.log(y + " : " + p[y]);
+      let b = p[y];
+      // b.foreach((index, e) => {
+      //   console.log("****************** " + JSON.stringify(e[index]));
+      // });
+      let i = 0;
+      while (i < b.length) {
+        console.log("****************** " + JSON.stringify(b[i]));
+        i++;
+      }
+    }
+  }
+  // console.log(
+  //   "o/p connections parsed..: " + JSON.stringify(outNodes["output_1"])
+  // );
+  // console.log("" + JSON.stringify(outNodes[0].connections));
+
   var val = `Node (${nodeInfo.id}, ${nodeInfo.name})`;
   dialogData.value = [...dialogData.value, val];
 };
