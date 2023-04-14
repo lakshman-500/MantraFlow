@@ -3,51 +3,68 @@
  -->
 <template>
   <div
-    class="h-screen bg-gray-950 bg-[length:60px] bg-[url('https://storage.googleapis.com/static.helloumi.com/daisho/img/grid.png')]"
+    class=""
   >
-    <div class="">
-      <ul class="flex gap-3 fixed top-5 right-[17rem]">
+    <div class=" sticky top-0 z-50">
+     
+      <div class="flex justify-between bg-gray-950 py-[8px] top-5 right-[17rem]">
+        <button @click="sideNav = !sideNav" type="button" class="rounded px-3 bg-gray-800  border hover:bg-gray-800 ml-4 border-gray-800">
+          <img src="@/burger.png" class="w-[25px]">
+        </button>
+        <div class="flex gap-2">
+          <div class="flex gap-2 border border-outline rounded-md items-center border-gray-800">
+          <button @click="zoomout" class="bg-gray-800 mouse px-3 rouned-s-md text-white">
+            -
+          </button>
+          <label class="text-gray-400 text-sm">{{zoomLevel}}</label>
+          <button @click="zoomin" class="bg-gray-800 mouse px-3 rouned-s-md text-white">
+            +
+          </button>
+        </div>
+          <div class="overflow-hidden relative">
+	<button class="relative hover:border-dashed text-white text-sm cursor-pointer border border-gray-800 rounded-md bg-gray-800 py-2 px-4 w-full inline-flex items-center">
+     	<svg class="fill-white" fill="#FFF" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
+        	<path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+        </svg>
+        <span class="ml-2">Upload Document</span>
         <input
-          class="flex gap-2 border border-outline rounded-md"
+          class="absolute border border-outline flex gap-2 left-0 opacity-0 right-0 rounded-md w-full cursor-pointer"
           type="file"
           ref="doc"
           @change="readFile()"
         />
-        <div class="flex gap-2 border border-outline rounded-md">
-          <button @click="zoomout" class="bg-gray-100 mouse px-2 rouned-s-md">
-            -
-          </button>
-          <label class="text-gray-100 text-sm">zoom</label>
-          <button @click="zoomin" class="bg-gray-100 mouse px-2 rouned-s-md">
-            +
-          </button>
-        </div>
-        <button class="bg-gray-100 mouse rounded px-2 text-sm">
+    </button>
+  
+</div>
+        <button class="bg-gray-800 mouse rounded px-3 text-sm border border-gray-800 text-white">
           Remove Connection
         </button>
-        <button class="bg-gray-100 mouse rounded px-2 text-sm">
+        <button class="bg-gray-800 mouse rounded px-3 text-sm border border-gray-800 text-white">
           Remove Node
         </button>
         <button
           @click="addOutput"
-          class="bg-gray-100 mouse rounded px-2 text-sm"
+          class="bg-gray-800 mouse rounded px-3 text-sm border border-gray-800 text-white"
         >
           + o/p
         </button>
         <button
           @click="deleteOutput"
-          class="bg-gray-100 mouse rounded px-2 text-sm"
+          class="bg-gray-800 mouse rounded px-3 text-sm border border-gray-800 text-white"
         >
           - o/p
         </button>
-        <!-- <button class="bg-blue mouse rounded px-2" @click="dialogVisible =">
+        <button @click="sideJson = !sideJson" type="button" class="mr-4 bg-gray-800 mouse rounded px-3 text-sm border border-gray-800 text-white"> <img src="@/apps.png" class="w-[25px]"></button>
+       </div>
+       <!-- <button class="bg-blue mouse rounded px-2" @click="dialogVisible =">
         Logs
       </button> -->
-      </ul>
+      </div>
     </div>
-    <div class="w-full flex">
+    <div class="w-full flex h-screen bg-gray-950 bg-[length:60px] bg-[url('https://storage.googleapis.com/static.helloumi.com/daisho/img/grid.png')]">
       <div class="w-full flex">
-        <FlowToolBar @addnode="drag" :nodeTypes="nodeTypes" class="w-[1/4]" />
+        <FlowToolBar v-if="sideNav" @addnode="drag" :nodeTypes="nodeTypes" class="w-[1/4]" />
         <FlowDesigner
           class="w-[3/4]"
           @nodeSelected="nodeSelected"
@@ -60,7 +77,7 @@
           :flowData="content"
         />
       </div>
-      <div class="w-[300px] bg-gray-100 max-h-screen overflow-auto p-3">
+      <div v-if="sideJson" class="w-[300px] bg-gray-100 max-h-screen overflow-auto p-3">
         <div class="p-3 bg-white rounded-md">
           <TabGroup>
             <TabList class="flex space-x-2 p-2 bg-gray-100 rounded-md">
@@ -245,4 +262,6 @@ function readFile() {
     reader.readAsText(file.value);
   }
 }
+const sideNav = ref(true)
+const sideJson = ref(false)
 </script>
