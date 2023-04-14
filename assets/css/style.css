@@ -1,19 +1,23 @@
 .drawflow .drawflow-node {
     /* display: block; */
-    /* border-radius: 10px; */
+    border-radius: 10px;
      background: white; 
-    border: 1px solid lightgray;
+    border: 0px solid lightgray;
     color: white;    
-    min-width: 250px; 
-    /* min-height: 250px;  */
+    min-width: 300px; 
+    min-height: 220px;
+    padding:24px;
     
+}
+.drawflow .drawflow-node:hover{
+    box-shadow: 0px 0px 27px 1px rgb(55 87 143 / 56%);
 }
 
 .drawflow .drawflow-node.selected {
     background: lightgoldenrodyellow;
-    border: 2px solid rgb(62, 62, 62);
+    /* border: 2px solid rgb(62, 62, 62);
         box-shadow: 0 2px 20px 2px lightblue
-        ;
+        ; */
 }
 .drawflow-node .title-box {
     height: 50px;
@@ -33,13 +37,13 @@
 }
 
 .drawflow .drawflow-node .input {
-    left: -25px;
+    left: -33px;
     border-radius: 4px;
     background-color: yellow;
 }
 
 .drawflow .drawflow-node .output {
-    right: -5px;
+    right: -15px;
     background-color: dodgerblue;
 }
 

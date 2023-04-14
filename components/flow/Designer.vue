@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full mt-1 flex px-1">
+  <div class="w-full flex px-1">
     <!--Node Types List..-->
 
     <!-- <FlowToolBar @addnode="drag" :nodeTypes="nodeTypes" class="w-[1/4]" /> -->
 
     <!--Drawing Board dined with div id :[drawflow_div] -->
-    <div class="w-full bg-white">
+    <div class="w-full">
       <div
         id="drawflow_div"
         ref="drawflow_div"
@@ -574,12 +574,11 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
   cursor: move;
 }
 #drawflow_div {
-  border: #494949 solid 1px;
   width: 100%;
   height: 690px;
   text-align: initial;
-  background: white;
+  /* background: white;
   background-size: 20px 20px;
-  background-image: radial-gradient(#dddddd 1px, transparent 1px);
+  background-image: radial-gradient(#dddddd 1px, transparent 1px); */
 }
 </style>
