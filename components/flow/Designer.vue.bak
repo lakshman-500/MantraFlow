@@ -568,14 +568,13 @@ function addNodeToDrawFlow(name, pos_x, pos_y) {
 
   const nodeSelected = nodeTypes.value.find((ele) => ele.code == name);
   editor.value.addNode(
-    nodeSelected.name, //"Home", //"ToolBarNode", //  // module..
+    nodeSelected.name,
     nodeSelected.input,
     nodeSelected.output,
     pos_x,
     pos_y,
-    "multiple",
-    //nodeSelected.name, //name,
-    nodeSelected,
+    name,
+    {},
     "ToolBarNode",
     "vue"
   );

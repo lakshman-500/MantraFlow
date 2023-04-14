@@ -51,8 +51,7 @@ onMounted(async () => {
 
   nodeSelected.value = nodeTypes.find(
     (ele) => ele.code == dataNode.value.data.code
-  );  
-  await nextTick();
+  );  await nextTick();
   console.log("NODE SELECTED: " + nodeSelected.value.template);
 
   if (

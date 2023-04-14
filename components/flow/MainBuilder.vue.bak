@@ -5,7 +5,7 @@
   <div
     class="h-screen bg-gray-950 bg-[length:60px] bg-[url('https://storage.googleapis.com/static.helloumi.com/daisho/img/grid.png')]"
   >
-    <div class="">
+    <div class="flex bg-blue z-1">
       <ul class=" flex gap-3 fixed top-5 right-[17rem]">
         <input class="flex gap-2 border border-outline rounded-md" type="file" ref="doc" @change="readFile()" />
         <div class="flex gap-2 border border-outline rounded-md">
