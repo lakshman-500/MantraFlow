@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex px-1">
+  <div class="w-full flex px-1 min-h-[calc(100vh_-_54px)] overflow-auto">
     <!--Node Types List..-->
 
     <!-- <FlowToolBar @addnode="drag" :nodeTypes="nodeTypes" class="w-[1/4]" /> -->

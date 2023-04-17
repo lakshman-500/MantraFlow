@@ -7,7 +7,9 @@
         2. Class : should be used to identify which Node Template is to be used when dropped on to Designer
  -->
 <template>
-  <div class="shadow border w-[28rem] mr-10 z-30 bg-gray-100 h-screen p-4">
+  <div class="flex">
+   
+  <div  class="shadow border w-[18rem] z-30 bg-gray-100 min-h-[calc(100vh_-_54px)] p-3 transition-all ease-in-out">
     <ul>
       <li
         :hidden="index === 0"
@@ -35,7 +37,12 @@
         </div>
       </li>
     </ul>
+
+    
   </div>
+
+  
+</div>
 </template>
 
 <script setup>
@@ -46,6 +53,7 @@ const drag = (ev) => {
   console.log("toolbar : > " + ev);
   emits("addnode", ev);
 };
+
 </script>
 
 <style scoped>
